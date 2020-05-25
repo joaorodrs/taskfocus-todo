@@ -1,4 +1,4 @@
-![Task Focus icon](https://github.com/JoaoPaulo-LD/pomodore-app/blob/master/TaskFocusOF.png)
+![Task Focus icon](https://github.com/JoaoPaulo-LD/taskfocus-todo/blob/master/TaskFocusOF.png)
 # Task Focus
 (EN-US) A React Native app to a TO DO LIST with the pomodoro timer. 
 
@@ -7,10 +7,10 @@
 ## (EN-US) Screen demonstrations:
 ## (PT-BR) Demonstração do app:
 
-![Gif de demonstração](https://github.com/JoaoPaulo-LD/pomodore-app/blob/master/videoTaskFocus1.gif)
-![Gif de demonstração](https://github.com/JoaoPaulo-LD/pomodore-app/blob/master/videoTaskFocus.gif)
-![Gif de demonstração](https://github.com/JoaoPaulo-LD/pomodore-app/blob/master/videoTaskFocus2.gif)
-![Gif de demonstração](https://github.com/JoaoPaulo-LD/pomodore-app/blob/master/videoTaskFocus3.gif)
+![Gif de demonstração](https://github.com/JoaoPaulo-LD/taskfocus-todo/blob/master/videoTaskFocus1.gif)
+![Gif de demonstração](https://github.com/JoaoPaulo-LD/taskfocus-todo/blob/master/videoTaskFocus.gif)
+![Gif de demonstração](https://github.com/JoaoPaulo-LD/taskfocus-todo/blob/master/videoTaskFocus2.gif)
+![Gif de demonstração](https://github.com/JoaoPaulo-LD/taskfocus-todo/blob/master/videoTaskFocus3.gif)
 
 ### There's so many things to add in this project and I hope that you are interessed in help me with this job!
 (i'm sorry for the length of this README, I had to put "one under the other" to write "subtitles" for the gif's )
