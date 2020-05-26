@@ -61,8 +61,10 @@ export const Pomodoros = styled.Text`
     color: #fda993;
 `
 
-export const TrashIcon = styled.TouchableOpacity`
+export const PencilIcon = styled.TouchableOpacity`
     position: absolute;
+    width: 50px;
+    height: 50px;
     left: 98%;
     top: 6%;
 `

@@ -98,8 +98,12 @@ module.exports = {
 
     async alterate(request, response) {
         const { taskTitle, taskPriority, pomodoros, taskDescription } = request.body
+
         const username = request.headers.authorization
+        console.log(username)
+        
         const { id } = request.params
+        console.log(id)
 
         const task = await connection('tasks')
             .where('id', id)
@@ -116,8 +120,7 @@ module.exports = {
                 taskTitle,
                 taskPriority,
                 pomodoros,
-                taskDescription,
-                username
+                taskDescription
             })
 
         return response.status(204).send()

@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+// General imports
 import { Feather } from '@expo/vector-icons'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { StatusBar, AsyncStorage, Alert } from 'react-native'
 
 import api from '../../services/api'
 
+// Styled components
 import {
     Container,
     Header,
@@ -16,7 +18,7 @@ import {
     TaskDescription,
     CardFooter,
     Pomodoros,
-    TrashIcon
+    PencilIcon
 } from './styles'
 
 export default function TaskDetail() {
@@ -35,20 +37,8 @@ export default function TaskDetail() {
         }
     // Navigation functions ***END***
 
-    async function deleteTask(id) {
-        const username = await AsyncStorage.getItem('username')
-
-        try {
-            await api.delete(`tasks/${id}`, {
-                headers: {
-                    Authorization: username
-                }
-            })
-            
-            navigation.goBack()
-        } catch (error) {
-            Alert.alert('Error', "Couldn't delete the task, please try again.")
-        }
+    async function navigateToAlterateTask(id) {
+        navigation.navigate('AlterateTask', { task, id })
     }
 
     return (
@@ -71,9 +61,9 @@ export default function TaskDetail() {
                         <Feather name="clock" size={20} color="#fda993" />
                         <Pomodoros>{task.pomodoros}</Pomodoros>
                     </CardFooter>
-                    <TrashIcon onPress={() => deleteTask(task.id)}>
-                        <Feather name="trash-2" size={30} color="#fda993" />
-                    </TrashIcon>
+                    <PencilIcon onPress={() => navigateToAlterateTask(task.id)}>
+                        <Feather name="edit-2" size={30} color="#fda993" />
+                    </PencilIcon>
                 </Card>
             </Container>
         </>

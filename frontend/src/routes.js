@@ -19,6 +19,7 @@ import SeeAll from './pages/SeeAll'
 
 import TaskDetail from './pages/TaskDetail';
 import CreateTask from './pages/CreateTask';
+import AlterateTask from './pages/AlterateTask'
 
 import Settings from './pages/SettingsPage'
 
@@ -39,6 +40,8 @@ export default function Routes() {
                 <AppStack.Screen name="CreateTask" component={CreateTask} />
 
                 <AppStack.Screen name="TaskDetail" component={TaskDetail} />
+
+                <AppStack.Screen name="AlterateTask" component={AlterateTask} />
 
                 <AppStack.Screen name="Settings" component={Settings} />
             </AppStack.Navigator>

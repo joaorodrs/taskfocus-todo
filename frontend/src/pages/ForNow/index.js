@@ -20,6 +20,8 @@ import {
 } from './styles.js'
 
 export default function ForNow() {
+    const myAbortController = new AbortController()
+
     // Navigation functions *START*
         const navigation = useNavigation()
 
@@ -37,6 +39,9 @@ export default function ForNow() {
         
     async function loadTasks() {
         const username = await AsyncStorage.getItem('username')
+
+        console.log(username)
+
         await api.get('tasksfornow', {
             headers: {
                 Authorization: username,
@@ -64,7 +69,7 @@ export default function ForNow() {
 
     useEffect(() => {
         loadTasks()
-    }, [])
+    }, [tasks])
 
     return (
         <Container>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 // General imports
 import { useNavigation } from '@react-navigation/native'
 import  { Feather } from '@expo/vector-icons'
-import { Animated, AsyncStorage, StatusBar, Alert } from 'react-native'
+import { Animated, AsyncStorage, StatusBar, Alert, View } from 'react-native'
 import { PanGestureHandler, State } from 'react-native-gesture-handler'
 
 import api from '../../services/api'
@@ -104,7 +104,7 @@ export default function Main() {
 
     useEffect(() => {
         loadTask()
-    }, [])    
+    }, [tasks])    
 
     return (
         <Container>
@@ -129,7 +129,7 @@ export default function Main() {
                             }]
                         }}>
                             {tasks.map(task => (
-                                <>
+                                <React.Fragment key={task.id}>
                                     <CardHeader>
                                         <Feather name="chevrons-down" size={30} color="#fda993" />
                                         <Title>Scroll down to start!</Title>
@@ -146,7 +146,7 @@ export default function Main() {
                                         <Feather name="flag" size={24} color="#fda993" />
                                         <Priority>{task.taskPriority}</Priority>
                                     </CardFooter>
-                                </>
+                                </React.Fragment>
                             ))}
                         </Card>
                 </PanGestureHandler>
