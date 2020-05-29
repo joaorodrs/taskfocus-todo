@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+
 // General imports
 import { Feather } from '@expo/vector-icons'
 import { useNavigation, useRoute } from '@react-navigation/native'
@@ -27,6 +28,7 @@ export default function TaskDetail() {
         const route = useRoute()
 
         const task = route.params.task
+        console.log(task)
 
         function navigateBack() {
             navigation.goBack()
@@ -35,11 +37,11 @@ export default function TaskDetail() {
         function navigateToHome() {
             navigation.navigate('Main')
         }
-    // Navigation functions ***END***
 
-    async function navigateToAlterateTask(id) {
-        navigation.navigate('AlterateTask', { task, id })
-    }
+        function navigateToAlterateTask(id) {
+            navigation.navigate('AlterateTask', { task, id })
+        }
+    // Navigation functions ***END***
 
     return (
         <>

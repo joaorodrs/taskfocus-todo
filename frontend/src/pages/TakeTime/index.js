@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+
 // General imports
 import { Feather } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
@@ -49,6 +50,7 @@ export default function TakeTime() {
         }, [])
     // Load tasks functions ***END***
 
+    // Delete task function ***START***
     async function deleteTask(id) {
         const username = await AsyncStorage.getItem('username')
 
@@ -64,6 +66,7 @@ export default function TakeTime() {
             Alert.alert('Error', "Couldn't delete the task, please try again.")
         }
     }
+    // Delete task function ***END***
 
     return (
         <Container>

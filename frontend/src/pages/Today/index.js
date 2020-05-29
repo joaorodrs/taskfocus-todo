@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react'
+
+// General imports
 import { Feather } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
 import { StatusBar, AsyncStorage } from 'react-native'
 
 import api from '../../services/api'
 
+// Styled components
 import {
     Container,
     Header,
@@ -51,21 +54,23 @@ export default function Today() {
         }, [])
     // Load tasks functions ***END***
 
-    async function deleteTask(id) {
-        const username = await AsyncStorage.getItem('username')
+    // Delete task function ***START***
+        async function deleteTask(id) {
+            const username = await AsyncStorage.getItem('username')
 
-        try {
-            await api.delete(`tasks/${id}`, {
-                headers: {
-                    Authorization: username
-                }
-            })
-            
-            setTasks(tasks.filter(task => task.id !== id))
-        } catch (error) {
-            Alert.alert('Error', "Couldn't delete the task, please try again.")
+            try {
+                await api.delete(`tasks/${id}`, {
+                    headers: {
+                        Authorization: username
+                    }
+                })
+                
+                setTasks(tasks.filter(task => task.id !== id))
+            } catch (error) {
+                Alert.alert('Error', "Couldn't delete the task, please try again.")
+            }
         }
-    }
+    // Delete task function ***START***
 
     return (
         <Container>

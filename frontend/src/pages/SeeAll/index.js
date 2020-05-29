@@ -1,7 +1,10 @@
 import React from 'react'
+
+// General imports
 import { Feather } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
 
+// Styled components
 import {
     Container,
     Header,
@@ -10,11 +13,13 @@ import {
 } from './styles'
 
 export default function SeeAll() {
-    const navigation = useNavigation()
+    // Navigation functions ***START***
+        const navigation = useNavigation()
 
-    function navigateBack() {
-        navigation.navigate('Main')
-    }
+        function navigateBack() {
+            navigation.navigate('Main')
+        }
+    // Navigation functions ***START***
 
     return (
         <Container>

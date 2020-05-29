@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react'
+
+// General imports
 import { Feather } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
 import { StatusBar, AsyncStorage } from 'react-native'
 
 import api from '../../services/api'
 
+// Styled components
 import {
     Container,
     Card,
@@ -37,19 +40,21 @@ export default function CreateTask() {
         const [pomodoros, setPomodoros] = useState('1')
         const [taskDescription, setTaskDescription] = useState('')
 
-        const [priorityFlagColor, setPriorityFlagColor] = useState('#a2a2a2')
+        // Rules that make the flag color change
+            const [priorityFlagColor, setPriorityFlagColor] = useState('#a2a2a2')
 
-        useEffect(() => {
-            if (taskPriority === '0') {
-                setPriorityFlagColor('#a2a2a2')
-            } else if (taskPriority === '1') {
-                setPriorityFlagColor('#35ce00')
-            } else if (taskPriority === '2') {
-                setPriorityFlagColor('#ffdf03')
-            } else {
-                setPriorityFlagColor('#ce1600')
-            }
-        }, [taskPriority])
+            useEffect(() => {
+                if (taskPriority === '0') {
+                    setPriorityFlagColor('#a2a2a2')
+                } else if (taskPriority === '1') {
+                    setPriorityFlagColor('#35ce00')
+                } else if (taskPriority === '2') {
+                    setPriorityFlagColor('#ffdf03')
+                } else {
+                    setPriorityFlagColor('#ce1600')
+                }
+            }, [taskPriority])
+        // Rules that make the flag color change
 
         async function createTask() {
             const username= await AsyncStorage.getItem('username')

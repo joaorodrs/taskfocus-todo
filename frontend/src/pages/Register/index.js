@@ -1,10 +1,13 @@
 import React, { useState } from 'react'
+
+// General imports
 import { Feather } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
 import { StatusBar, Text, Alert } from 'react-native'
 
 import api from '../../services/api'
 
+// Styled components
 import {
     Container,
     RegisterCard,
@@ -32,31 +35,33 @@ export default function Login() {
         }
     // Navigation functions END
 
-    const [username, setUsername] = useState('')
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
+    // Register functions and states ***START***
+        const [username, setUsername] = useState('')
+        const [email, setEmail] = useState('')
+        const [password, setPassword] = useState('')
 
-    async function register(e) {
-        e.preventDefault()
+        async function register(e) {
+            e.preventDefault()
 
-        const data = {
-            username,
-            email,
-            password
+            const data = {
+                username,
+                email,
+                password
+            }
+
+            console.log(data)
+
+            try {
+                await api.post('users', data)
+
+                alert("Seu cadastro foi feito com sucesso!")
+
+                navigation.navigate('Login')
+            } catch(error) {
+                alert("Erro no cadastro!")
+            }
         }
-
-        console.log(data)
-
-        try {
-            await api.post('users', data)
-
-            alert("Seu cadastro foi feito com sucesso!")
-
-            navigation.navigate('Login')
-        } catch(error) {
-            alert("Erro no cadastro!")
-        }
-    }
+    // Register functions and states ***START***
 
     return (
         <Container>

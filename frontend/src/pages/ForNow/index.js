@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react'
+
+// General imports
 import { Feather } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
 import { AsyncStorage, StatusBar } from 'react-native'
 
 import api from '../../services/api'
 
+// Styled Components
 import {
     Container,
     Header,
@@ -20,8 +23,6 @@ import {
 } from './styles.js'
 
 export default function ForNow() {
-    const myAbortController = new AbortController()
-
     // Navigation functions *START*
         const navigation = useNavigation()
 
@@ -35,41 +36,44 @@ export default function ForNow() {
     // Navigation functions *END*
 
     // Load tasks functions *START*
-    const [tasks, setTasks] = useState([])
-        
-    async function loadTasks() {
-        const username = await AsyncStorage.getItem('username')
-
-        console.log(username)
-
-        await api.get('tasksfornow', {
-            headers: {
-                Authorization: username,
-            },
-        }).then(response => {
-            setTasks(response.data)
-        })
-    }
-
-    async function deleteTask(id) {
-        const username = await AsyncStorage.getItem('username')
-
-        try {
-            await api.delete(`tasks/${id}`, {
-                headers: {
-                    Authorization: username
-                }
-            })
+        const [tasks, setTasks] = useState([])
             
-            setTasks(tasks.filter(task => task.id !== id))
-        } catch (error) {
-            Alert.alert('Error', "Couldn't delete the task, please try again.")
-        }
-    }
+        async function loadTasks() {
+            const username = await AsyncStorage.getItem('username')
 
-    useEffect(() => {
-        loadTasks()
-    }, [tasks])
+            console.log(username)
+
+            await api.get('tasksfornow', {
+                headers: {
+                    Authorization: username,
+                },
+            }).then(response => {
+                setTasks(response.data)
+            })
+        }
+
+        useEffect(() => {
+            loadTasks()
+        }, [])
+    // Load tasks functions *END*
+
+    // Delete tasks functions *START*
+        async function deleteTask(id) {
+            const username = await AsyncStorage.getItem('username')
+
+            try {
+                await api.delete(`tasks/${id}`, {
+                    headers: {
+                        Authorization: username
+                    }
+                })
+                
+                setTasks(tasks.filter(task => task.id !== id))
+            } catch (error) {
+                Alert.alert('Error', "Couldn't delete the task, please try again.")
+            }
+        }
+    // Delete tasks functions *END*
 
     return (
         <Container>

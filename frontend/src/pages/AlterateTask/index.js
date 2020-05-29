@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+
 // General imports
 import { Feather } from '@expo/vector-icons'
 import { useNavigation, useRoute } from '@react-navigation/native'
@@ -39,25 +40,28 @@ export default function AlterateTask() {
     
     // Alterate tasks functions and states ***START***
         // the inputs with "<==" are going to be filled initialy with the previous value (all them)
-        const [taskTitle, setTaskTitle] = useState(task.taskTitle) // <==
-        const [taskPriority, setTaskPriority] = useState(task.taskPriority) // <==
-        const [pomodoros, setPomodoros] = useState(task.pomodoros) // <==
-        const [taskDescription, setTaskDescription] = useState(task.taskDescription) // <==
+            const [taskTitle, setTaskTitle] = useState(task.taskTitle) // <==
+            const [taskPriority, setTaskPriority] = useState(task.taskPriority) // <==
+            const [pomodoros, setPomodoros] = useState(task.pomodoros) // <==
+            const [taskDescription, setTaskDescription] = useState(task.taskDescription) // <==
+        //
 
-        const [priorityFlagColor, setPriorityFlagColor] = useState('#a2a2a2')
+        // Rules that make the flag color change
+            const [priorityFlagColor, setPriorityFlagColor] = useState('#a2a2a2')
 
-        useEffect(() => {
-            if (taskPriority === '0') {
-                setPriorityFlagColor('#a2a2a2')
-            } else if (taskPriority === '1') {
-                setPriorityFlagColor('#35ce00')
-            } else if (taskPriority === '2') {
-                setPriorityFlagColor('#ffdf03')
-            } else {
-                setPriorityFlagColor('#ce1600')
-            }
-        }, [taskPriority])
-
+            useEffect(() => {
+                if (taskPriority === '0') {
+                    setPriorityFlagColor('#a2a2a2')
+                } else if (taskPriority === '1') {
+                    setPriorityFlagColor('#35ce00')
+                } else if (taskPriority === '2') {
+                    setPriorityFlagColor('#ffdf03')
+                } else {
+                    setPriorityFlagColor('#ce1600')
+                }
+            }, [taskPriority])
+        // Rules that make the flag color change
+        
         async function alterate() {
             const username = await AsyncStorage.getItem('username')
 

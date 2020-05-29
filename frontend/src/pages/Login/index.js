@@ -1,10 +1,13 @@
 import React, { useState } from 'react'
+
+// General imports
 import { Feather } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
 import { StatusBar, Text, Alert, AsyncStorage } from 'react-native'
 
 import api from '../../services/api'
 
+// Styled components
 import {
     Container,
     LoginCard,
@@ -28,31 +31,33 @@ export default function Login() {
         }
     // Navigation functions END
     
-    const [username, setUsername] = useState('')
-    const [password, setPassword] = useState('')
+    // User login functions and states ***START***
+        const [username, setUsername] = useState('')
+        const [password, setPassword] = useState('')
 
-    async function login(e) {
-        e.preventDefault()
+        async function login(e) {
+            e.preventDefault()
 
-        const data = {
-            username,
-            password
+            const data = {
+                username,
+                password
+            }
+
+            console.log(data)
+
+            try {
+                const response = await api.post('session', data)
+
+                console.log(response.data)
+
+                await AsyncStorage.setItem('username', response.data)
+
+                navigation.navigate('Main')
+            } catch(error) {
+                Alert.alert('Falha no login', 'Tente novamente!')
+            }
         }
-
-        console.log(data)
-
-        try {
-            const response = await api.post('session', data)
-
-            console.log(response.data)
-
-            await AsyncStorage.setItem('username', response.data)
-
-            navigation.navigate('Main')
-        } catch(error) {
-            Alert.alert('Falha no login', 'Tente novamente!')
-        }
-    }
+    // User login functions and states ***START***
 
     return (
         <Container>

@@ -1,10 +1,13 @@
 import React, { useState } from 'react'
+
+// General imports
 import { Feather } from '@expo/vector-icons'
 import { AsyncStorage, StatusBar } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 
 import logoImg from '../../assets/TaskFocusOF.png'
 
+// Styled components
 import {
     Container,
     Header,
@@ -21,21 +24,25 @@ import {
 } from './styles'
 
 export default function SettingsPage() {
-    const navigation = useNavigation()
+    // Navigation functions ***START***
+        const navigation = useNavigation()
 
-    function navigateBack() {
-        navigation.navigate('Main')
-    }
+        function navigateBack() {
+            navigation.navigate('Main')
+        }
+    // Navigation functions ***START***
 
-    const [loggedAs, setLoggedAs] = useState('')
+    // Get username functions and states ***START***
+        const [loggedAs, setLoggedAs] = useState('')
 
-    async function getUsername() {
-        const username = await AsyncStorage.getItem('username')
+        async function getUsername() {
+            const username = await AsyncStorage.getItem('username')
 
-        setLoggedAs(username)
-    }
+            setLoggedAs(username)
+        }
 
-    getUsername()
+        getUsername()
+    // Get username functions and states ***START***
 
     return (
         <Container>

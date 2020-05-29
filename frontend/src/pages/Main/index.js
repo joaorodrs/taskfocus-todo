@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+
 // General imports
 import { useNavigation } from '@react-navigation/native'
 import  { Feather } from '@expo/vector-icons'
@@ -44,7 +45,7 @@ export default function Main() {
         let offset = 0
         const translateY = new Animated.Value(0)
 
-        const animatedEvent = Animated.event( // vai captar a posição que o usuário tá arrastando e vai mandar para o translateY
+        const animatedEvent = Animated.event( // will take the pan move and pass the value to the translateY constant
             [
                 {
                     nativeEvent: {
@@ -52,7 +53,7 @@ export default function Main() {
                     }
                 }
             ],
-            { useNativeDriver: true } // to use native Java or Swift to do the animation.
+            { useNativeDriver: true } // to use native driver to do the animation. (it increases perfomance)
         )
 
         function onHandlerStateChanged(event) { // to pass the user moves to translateY variable
@@ -71,11 +72,11 @@ export default function Main() {
                 }
 
                 Animated.timing(translateY, {
-                    toValue: opened ? 380 : 0,
+                    toValue: opened ? 380 : 0, // help the user to move the card
                     duration: 100,
                     useNativeDriver: true,
                 }).start(() => {
-                    offset = opened ? 380 : 0
+                    offset = opened ? 380 : 0 // help the user to move the card
                     translateY.setOffset(offset)
                     translateY.setValue(0)
                 })
@@ -83,28 +84,30 @@ export default function Main() {
         }
     // Animation functions ***END***
 
-    const [tasks, setTasks] = useState([])
+    // Load one task functions and states ***START***
+        const [tasks, setTasks] = useState([])
 
-    async function loadTask() {
-        const username = await AsyncStorage.getItem('username')
+        async function loadTask() {
+            const username = await AsyncStorage.getItem('username')
 
-        try {
-            api.get('tasksone', {
-                headers: {
-                    Authorization: username
-                }
-            }).then(response => {
-                setTasks(response.data)
-            })
-        } catch(error) {
-            Alert.alert('Erro', 'Impossível mostrar tarefas, tente novamente mais tarde.')
+            try {
+                api.get('tasksone', {
+                    headers: {
+                        Authorization: username
+                    }
+                }).then(response => {
+                    setTasks(response.data)
+                })
+            } catch(error) {
+                Alert.alert('Erro', 'Impossível mostrar tarefas, tente novamente mais tarde.')
+            }
+            
         }
-        
-    }
 
-    useEffect(() => {
-        loadTask()
-    }, [tasks])    
+        useEffect(() => {
+            loadTask()
+        }, [])
+    // Load one task functions and states ***END***
 
     return (
         <Container>
