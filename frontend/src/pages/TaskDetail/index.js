@@ -27,8 +27,7 @@ export default function TaskDetail() {
         const navigation = useNavigation()
         const route = useRoute()
 
-        const task = route.params.task
-        console.log(task)
+        const [task, setTask] = useState(route.params.task)
 
         function navigateBack() {
             navigation.goBack()
@@ -39,9 +38,15 @@ export default function TaskDetail() {
         }
 
         function navigateToAlterateTask(id) {
-            navigation.navigate('AlterateTask', { task, id })
+            navigation.navigate('AlterateTask', { task, id, initial: false })
         }
     // Navigation functions ***END***
+
+    useEffect(() => {
+        setTask(route.params.task)
+
+        console.log('oi')
+    }, [task])
 
     return (
         <>

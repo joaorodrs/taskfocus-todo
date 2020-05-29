@@ -31,7 +31,7 @@ export default function ForNow() {
         }
 
         function navigateToTaskDetail(task) {
-            navigation.navigate('TaskDetail', { task })
+            navigation.navigate('TaskDetail', { task, initial: false }) // passing the task.id for the detail screen shows the task that the user clicked
         }
     // Navigation functions *END*
 
@@ -40,8 +40,6 @@ export default function ForNow() {
             
         async function loadTasks() {
             const username = await AsyncStorage.getItem('username')
-
-            console.log(username)
 
             await api.get('tasksfornow', {
                 headers: {

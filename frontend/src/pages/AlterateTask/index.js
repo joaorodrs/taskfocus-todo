@@ -30,7 +30,8 @@ export default function AlterateTask() {
         const navigation = useNavigation()
         const route = useRoute()
 
-        const task = route.params.task // it catches the task data from the previous screen
+        const [task, setTask] = useState(route.params.task) // it catches the task data from the previous screen
+
         const id = route.params.id // it catches the task id from the previous screen
 
         function navigateBack() {
@@ -65,8 +66,6 @@ export default function AlterateTask() {
         async function alterate() {
             const username = await AsyncStorage.getItem('username')
 
-            console.log(id)
-
             const data = {
                 taskTitle,
                 taskPriority,
@@ -80,6 +79,11 @@ export default function AlterateTask() {
                         Authorization: username
                     }
                 })
+
+                setTask(data)
+
+                console.log(data)
+                console.log(task)
 
                 navigation.navigate('TaskDetail', { task })
             } catch (error) {
