@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 // General imports
 import { Feather } from '@expo/vector-icons'
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation, useIsFocused } from '@react-navigation/native'
 import { AsyncStorage, StatusBar } from 'react-native'
 
 import api from '../../services/api'
@@ -30,9 +30,11 @@ export default function ForNow() {
             navigation.navigate('Main')
         }
 
-        function navigateToTaskDetail(task) {
-            navigation.navigate('TaskDetail', { task, initial: false }) // passing the task.id for the detail screen shows the task that the user clicked
+        function navigateToTaskDetail(taskId) {
+            navigation.navigate('TaskDetail', { taskId }) // passing the task.id for the detail screen shows the task that the user clicked
         }
+
+        const isFocused = useIsFocused()
     // Navigation functions *END*
 
     // Load tasks functions *START*
@@ -52,7 +54,7 @@ export default function ForNow() {
 
         useEffect(() => {
             loadTasks()
-        }, [])
+        }, [isFocused])
     // Load tasks functions *END*
 
     // Delete tasks functions *START*
@@ -87,7 +89,7 @@ export default function ForNow() {
                 keyExtractor={task => String(task.id)}
                 data={tasks}
                 renderItem={({ item: task }) => (
-                    <BlockItem onPress={() => navigateToTaskDetail(task)} >
+                    <BlockItem onPress={() => navigateToTaskDetail(task.id)} >
                     <BlockTitle>{task.taskTitle}</BlockTitle>
                     <BlockDescription>{task.taskDescription}</BlockDescription>
                     <BlockFooter>

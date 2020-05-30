@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
 // General imports
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation, useIsFocused } from '@react-navigation/native'
 import  { Feather } from '@expo/vector-icons'
 import { Animated, AsyncStorage, StatusBar, Alert, View } from 'react-native'
 import { PanGestureHandler, State } from 'react-native-gesture-handler'
@@ -38,6 +38,8 @@ export default function Main() {
         function navigateToCreateTask() {
             navigation.navigate('CreateTask')
         }
+
+        const isFocused = useIsFocused()
     // Navigation functions ***END***
 
 
@@ -106,7 +108,7 @@ export default function Main() {
 
         useEffect(() => {
             loadTask()
-        }, [])
+        }, [isFocused])
     // Load one task functions and states ***END***
 
     return (

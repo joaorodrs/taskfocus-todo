@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 // General imports
 import { Feather } from '@expo/vector-icons'
-import { useNavigation, useRoute } from '@react-navigation/native'
+import { useNavigation, useRoute, useIsFocused } from '@react-navigation/native'
 import { StatusBar, AsyncStorage, Alert } from 'react-native'
 
 import api from '../../services/api'
@@ -26,8 +26,10 @@ export default function TaskDetail() {
     // Navigation functions ***START***
         const navigation = useNavigation()
         const route = useRoute()
-
-        const [task, setTask] = useState(route.params.task)
+        
+        const isFocused = useIsFocused()
+        
+        const taskId = route.params.taskId
 
         function navigateBack() {
             navigation.goBack()
@@ -37,16 +39,36 @@ export default function TaskDetail() {
             navigation.navigate('Main')
         }
 
-        function navigateToAlterateTask(id) {
-            navigation.navigate('AlterateTask', { task, id, initial: false })
+        function navigateToAlterateTask(task, id) {
+            navigation.navigate('AlterateTask', { task, id })
         }
     // Navigation functions ***END***
 
-    useEffect(() => {
-        setTask(route.params.task)
+    const [tasks, setTasks] = useState([])
 
-        console.log('oi')
-    }, [task])
+    async function loadDetail() {
+        const username = await AsyncStorage.getItem('username')
+
+        try {
+            api.get('taskdetail', {
+                headers: {
+                    Authorization: username,
+                    taskId: taskId
+                }
+            }).then(response => {
+                setTasks(response.data)
+                console.log(taskId)
+            })
+        } catch(error) {
+            Alert.alert('Error', 'Not possible do this action, try later.')
+        }
+    }
+
+    useEffect(() => {
+        loadDetail()
+
+        console.log('taskdetail')
+    }, [isFocused])
 
     return (
         <>
@@ -60,17 +82,21 @@ export default function TaskDetail() {
                     <Feather onPress={navigateToHome} name="home" size={30} color="#FFF" />
                 </Header>
                 <Card>
-                    <CardContent>
-                        <TaskTitle>{task.taskTitle}</TaskTitle>
-                        <TaskDescription>{task.taskDescription}</TaskDescription>
-                    </CardContent>
-                    <CardFooter>
-                        <Feather name="clock" size={20} color="#fda993" />
-                        <Pomodoros>{task.pomodoros}</Pomodoros>
-                    </CardFooter>
-                    <PencilIcon onPress={() => navigateToAlterateTask(task.id)}>
-                        <Feather name="edit-2" size={30} color="#fda993" />
-                    </PencilIcon>
+                    {tasks.map(task => (
+                        <React.Fragment key={task.id}>
+                            <CardContent>
+                                <TaskTitle>{task.taskTitle}</TaskTitle>
+                                <TaskDescription>{task.taskDescription}</TaskDescription>
+                            </CardContent>
+                            <CardFooter>
+                                <Feather name="clock" size={20} color="#fda993" />
+                                <Pomodoros>{task.pomodoros}</Pomodoros>
+                            </CardFooter>
+                            <PencilIcon onPress={() => navigateToAlterateTask(task, task.id)}>
+                                <Feather name="edit-2" size={30} color="#fda993" />
+                            </PencilIcon>
+                        </React.Fragment>
+                    ))}
                 </Card>
             </Container>
         </>

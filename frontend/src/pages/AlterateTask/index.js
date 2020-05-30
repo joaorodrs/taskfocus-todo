@@ -73,17 +73,14 @@ export default function AlterateTask() {
                 taskDescription
             }
 
+            setTask(data)
+
             try {
                 await api.put(`tasks/${id}`, data, {
                     headers: {
                         Authorization: username
                     }
                 })
-
-                setTask(data)
-
-                console.log(data)
-                console.log(task)
 
                 navigation.navigate('TaskDetail', { task })
             } catch (error) {

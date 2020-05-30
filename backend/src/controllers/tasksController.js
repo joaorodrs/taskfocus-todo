@@ -96,6 +96,21 @@ module.exports = {
         return response.json(tasks)
     },
 
+    async indexDetail(request, response) {
+        const username = request.headers.authorization
+        const id = request.headers.taskid
+
+        console.log(username)
+        console.log(id)
+
+        const tasks = await connection('tasks')
+            .where('username', username)
+            .where('id', id)
+            .select('*')
+
+        return response.json(tasks)
+    },
+
     async alterate(request, response) {
         const { taskTitle, taskPriority, pomodoros, taskDescription } = request.body
 

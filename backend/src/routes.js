@@ -24,6 +24,8 @@ routes.get('/taskstaketime', tasksController.indexTakeTime) // <== to list tasks
 
 routes.get('/tasksone', tasksController.indexOne) // <== to list one task to do now
 
+routes.get('/taskdetail', tasksController.indexDetail) // <== show the details of the task
+
 routes.delete('/tasks/:id', tasksController.delete) // <== to delete a task from specific user
 routes.put('/tasks/:id', tasksController.alterate) // <== to alterate a task from specific user
 
